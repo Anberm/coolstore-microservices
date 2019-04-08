@@ -37,18 +37,13 @@ catalogSettings:
 cartSettings:
   Host: "0.0.0.0"
   Port: 5003
-  MySqlDbFQDN: "cartdb:3306"
+  MySqlDbFQDN: "mysqldb:3306"
   CatalogUri: "http://api.coolstore.local/catalog"
 
 inventorySettings:
   Host: "0.0.0.0"
   Port: 5004
-  MySqlDbFQDN: "inventorydb:3306"
-
-reviewSettings:
-  Host: "0.0.0.0"
-  Port: 5006
-  MongoConnString: "mongodb://mymongodb:27017"
+  MySqlDbFQDN: "mysqldb:3306"
 
 ratingSettings:
   NodeEnv: "production"
@@ -60,13 +55,12 @@ ratingSettings:
 
 graphqlSettings:
   HostsBasePath: /gql/
-  CorsOrigins: http://backoffice.coolstore.local,http://api.coolstore.local/gql/
+  CorsOrigins: http://backoffice.coolstore.local/,http://api.coolstore.local/
   IdpAuthority: http://id.coolstore.local/
   IdpAudience: api
   CatalogEndPoint: http://api.coolstore.local/catalog/
   CartEndPoint: http://api.coolstore.local/cart/
   InventoryEndPoint: http://api.coolstore.local/inventory/
-  ReviewEndPoint: http://api.coolstore.local/review/
   RatingEndPoint: http://api.coolstore.local/rating/
 
 spaSettings:
@@ -80,7 +74,7 @@ spaSettings:
   RatingUri: http://coolstore.local/rating/
 
 backofficeSettings:
-  GraphQLEndPoint: http://api.coolstore.local/gql/graphql
+  GraphQLEndPoint: http://api.coolstore.local/gql
   Authority: http://id.coolstore.local/
   ClientId: backoffice
   RootUrl: http://backoffice.coolstore.local

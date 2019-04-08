@@ -22,10 +22,6 @@ export interface GetRatingByProductIdInput {
   productId: string;
 }
 
-export interface GetReviewsInput {
-  productId: string;
-}
-
 export interface CreateProductInput {
   name: string;
 
@@ -78,24 +74,6 @@ export interface UpdateRatingInput {
   cost: number;
 }
 
-export interface CreateReviewInput {
-  productId: string;
-
-  userId: string;
-
-  content: string;
-}
-
-export interface EditReviewInput {
-  reviewId: string;
-
-  content: string;
-}
-
-export interface DeleteReviewInput {
-  reviewId: string;
-}
-
 // ====================================================
 // Types
 // ====================================================
@@ -114,8 +92,6 @@ export interface Query {
   ratings?: Maybe<(Maybe<Rating>)[]>;
 
   rating?: Maybe<Rating>;
-
-  reviews?: Maybe<(Maybe<Review>)[]>;
 }
 
 export interface Product {
@@ -180,20 +156,6 @@ export interface Rating {
   cost: number;
 }
 
-export interface Review {
-  id: string;
-
-  content: string;
-
-  authorId: string;
-
-  authorName: string;
-
-  productId: string;
-
-  productName: string;
-}
-
 export interface Mutation {
   createProduct: Product;
 
@@ -208,12 +170,6 @@ export interface Mutation {
   createRating: Rating;
 
   updateRating: Rating;
-
-  createReview: Review;
-
-  editReview: Review;
-
-  deleteReview: string;
 }
 
 // ====================================================
@@ -235,9 +191,6 @@ export interface AvailabilityQueryArgs {
 export interface RatingQueryArgs {
   input: GetRatingByProductIdInput;
 }
-export interface ReviewsQueryArgs {
-  input: GetReviewsInput;
-}
 export interface CreateProductMutationArgs {
   input: CreateProductInput;
 }
@@ -258,15 +211,6 @@ export interface CreateRatingMutationArgs {
 }
 export interface UpdateRatingMutationArgs {
   input: UpdateRatingInput;
-}
-export interface CreateReviewMutationArgs {
-  input: CreateReviewInput;
-}
-export interface EditReviewMutationArgs {
-  input: EditReviewInput;
-}
-export interface DeleteReviewMutationArgs {
-  input: DeleteReviewInput;
 }
 
 import { GraphQLResolveInfo } from "graphql";
@@ -352,12 +296,6 @@ export interface QueryResolvers<TContext = MyContext, TypeParent = {}> {
   >;
 
   rating?: QueryRatingResolver<Maybe<Rating>, TypeParent, TContext>;
-
-  reviews?: QueryReviewsResolver<
-    Maybe<(Maybe<Review>)[]>,
-    TypeParent,
-    TContext
-  >;
 }
 
 export type QueryProductsResolver<
@@ -413,15 +351,6 @@ export type QueryRatingResolver<
 > = Resolver<R, Parent, TContext, QueryRatingArgs>;
 export interface QueryRatingArgs {
   input: GetRatingByProductIdInput;
-}
-
-export type QueryReviewsResolver<
-  R = Maybe<(Maybe<Review>)[]>,
-  Parent = {},
-  TContext = MyContext
-> = Resolver<R, Parent, TContext, QueryReviewsArgs>;
-export interface QueryReviewsArgs {
-  input: GetReviewsInput;
 }
 
 export interface ProductResolvers<TContext = MyContext, TypeParent = Product> {
@@ -635,51 +564,6 @@ export type RatingCostResolver<
   TContext = MyContext
 > = Resolver<R, Parent, TContext>;
 
-export interface ReviewResolvers<TContext = MyContext, TypeParent = Review> {
-  id?: ReviewIdResolver<string, TypeParent, TContext>;
-
-  content?: ReviewContentResolver<string, TypeParent, TContext>;
-
-  authorId?: ReviewAuthorIdResolver<string, TypeParent, TContext>;
-
-  authorName?: ReviewAuthorNameResolver<string, TypeParent, TContext>;
-
-  productId?: ReviewProductIdResolver<string, TypeParent, TContext>;
-
-  productName?: ReviewProductNameResolver<string, TypeParent, TContext>;
-}
-
-export type ReviewIdResolver<
-  R = string,
-  Parent = Review,
-  TContext = MyContext
-> = Resolver<R, Parent, TContext>;
-export type ReviewContentResolver<
-  R = string,
-  Parent = Review,
-  TContext = MyContext
-> = Resolver<R, Parent, TContext>;
-export type ReviewAuthorIdResolver<
-  R = string,
-  Parent = Review,
-  TContext = MyContext
-> = Resolver<R, Parent, TContext>;
-export type ReviewAuthorNameResolver<
-  R = string,
-  Parent = Review,
-  TContext = MyContext
-> = Resolver<R, Parent, TContext>;
-export type ReviewProductIdResolver<
-  R = string,
-  Parent = Review,
-  TContext = MyContext
-> = Resolver<R, Parent, TContext>;
-export type ReviewProductNameResolver<
-  R = string,
-  Parent = Review,
-  TContext = MyContext
-> = Resolver<R, Parent, TContext>;
-
 export interface MutationResolvers<TContext = MyContext, TypeParent = {}> {
   createProduct?: MutationCreateProductResolver<Product, TypeParent, TContext>;
 
@@ -702,12 +586,6 @@ export interface MutationResolvers<TContext = MyContext, TypeParent = {}> {
   createRating?: MutationCreateRatingResolver<Rating, TypeParent, TContext>;
 
   updateRating?: MutationUpdateRatingResolver<Rating, TypeParent, TContext>;
-
-  createReview?: MutationCreateReviewResolver<Review, TypeParent, TContext>;
-
-  editReview?: MutationEditReviewResolver<Review, TypeParent, TContext>;
-
-  deleteReview?: MutationDeleteReviewResolver<string, TypeParent, TContext>;
 }
 
 export type MutationCreateProductResolver<
@@ -773,33 +651,6 @@ export interface MutationUpdateRatingArgs {
   input: UpdateRatingInput;
 }
 
-export type MutationCreateReviewResolver<
-  R = Review,
-  Parent = {},
-  TContext = MyContext
-> = Resolver<R, Parent, TContext, MutationCreateReviewArgs>;
-export interface MutationCreateReviewArgs {
-  input: CreateReviewInput;
-}
-
-export type MutationEditReviewResolver<
-  R = Review,
-  Parent = {},
-  TContext = MyContext
-> = Resolver<R, Parent, TContext, MutationEditReviewArgs>;
-export interface MutationEditReviewArgs {
-  input: EditReviewInput;
-}
-
-export type MutationDeleteReviewResolver<
-  R = string,
-  Parent = {},
-  TContext = MyContext
-> = Resolver<R, Parent, TContext, MutationDeleteReviewArgs>;
-export interface MutationDeleteReviewArgs {
-  input: DeleteReviewInput;
-}
-
 export type AuthorizeDirectiveResolver<Result> = DirectiveResolverFn<
   Result,
   {},
@@ -844,7 +695,6 @@ export type IResolvers<TContext = MyContext> = {
   CartItem?: CartItemResolvers<TContext>;
   Inventory?: InventoryResolvers<TContext>;
   Rating?: RatingResolvers<TContext>;
-  Review?: ReviewResolvers<TContext>;
   Mutation?: MutationResolvers<TContext>;
 } & { [typeName: string]: never };
 

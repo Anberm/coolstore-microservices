@@ -1,10 +1,17 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: graphql-v1
   namespace: {{ .Release.Namespace }}
+  labels:
+    app: graphql
+    version: v1
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: graphql
+      version: v1
   template:
     metadata:
       labels:
@@ -30,17 +37,15 @@ spec:
           value: {{ .Values.graphqlSettings.CartEndPoint }}
         - name: GrpcEndPoints__InventoryEndPoint
           value: {{ .Values.graphqlSettings.InventoryEndPoint }}
-        - name: GrpcEndPoints__ReviewEndPoint
-          value: {{ .Values.graphqlSettings.ReviewEndPoint }}
         - name: GrpcEndPoints__RatingEndPoint
           value: {{ .Values.graphqlSettings.RatingEndPoint }}
         ports:
         - containerPort: 5011
         resources:
           requests:
-            cpu: 10m
+            cpu: 50m
             memory: 64Mi
           limits:
-            cpu: 20m
-            memory: 128Mi
+            cpu: 50m
+            memory: 64Mi
 ---

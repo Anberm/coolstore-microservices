@@ -17,6 +17,8 @@ The business domain for internal µservice is inspired from [CoolStore project](
 
 Check out my [blog](https://medium.com/@thangchung), my [chat](https://spectrum.chat/net-core) or say hi on [Twitter](https://twitter.com/thangchung)!
 
+[Become a sponsor on Patreon](https://www.patreon.com/thangchung)
+
 ## Screenshots
 
 <details>
@@ -83,7 +85,12 @@ There are several individual µservices and infrastructure components that make 
   <tbody>
     <tr>
       <td align="center">1.</td>
-      <td>IdP (.NET Core + In-memory database)</td>
+      <td>
+        IdP (.NET Core + In-memory database)<br/>
+        <a href="https://dev.azure.com/vietnam-devs/coolstore-microservices/_build/latest?definitionId=4&branchName=master">
+          <img src="https://dev.azure.com/vietnam-devs/coolstore-microservices/_apis/build/status/identity?branchName=master" />
+        </a>
+      </td>
       <td>Uses <a href="https://github.com/IdentityServer/IdentityServer4">IdentityServer4</a> to authentication with OAuth 2.0 and OpenID Connect for the whole stack</td>
       <td>
         <a href="https://github.com/vietnam-devs/coolstore-microservices/tree/master/src/services/idp">code</a>
@@ -94,7 +101,12 @@ There are several individual µservices and infrastructure components that make 
     </tr>
     <tr>
       <td align="center">2.</td>
-      <td>GraphQL server (.NET Core)</td>
+      <td>
+        GraphQL server (.NET Core)<br/>
+        <a href="https://dev.azure.com/vietnam-devs/coolstore-microservices/_build/latest?definitionId=12&branchName=master">
+          <img src="https://dev.azure.com/vietnam-devs/coolstore-microservices/_apis/build/status/graphql?branchName=master" />
+        </a>
+      </td>
       <td>The GraphQL server for backoffice application</td>
       <td>
         <a href="https://github.com/vietnam-devs/coolstore-microservices/tree/master/src/services/graphql">code</a>
@@ -105,7 +117,12 @@ There are several individual µservices and infrastructure components that make 
      </tr>
      <tr>
       <td align="center">3.</td>
-      <td>OpenApi (.NET Core + envoy-proxy)</td>
+      <td>
+        OpenApi (.NET Core + envoy-proxy)<br/>
+        <a href="https://dev.azure.com/vietnam-devs/coolstore-microservices/_build/latest?definitionId=11&branchName=master">
+          <img src="https://dev.azure.com/vietnam-devs/coolstore-microservices/_apis/build/status/openapi?branchName=master" />
+        </a>
+      </td>
       <td>The OpenAPI which generated from gRPC contract files, hosted in OpenAPI format, and used envoy-proxy to proxy it</td>
       <td>
         <a href="https://github.com/vietnam-devs/coolstore-microservices/tree/master/src/services/openapi">code</a>
@@ -116,7 +133,12 @@ There are several individual µservices and infrastructure components that make 
      </tr>
      <tr>
       <td align="center">4.</td>
-      <td>Web (PWA - Vuejs + Node.js)</td>
+      <td>
+        Web (PWA - Vuejs + Node.js)<br/>
+        <a href="https://dev.azure.com/vietnam-devs/coolstore-microservices/_build/latest?definitionId=8&branchName=master">
+          <img src="https://dev.azure.com/vietnam-devs/coolstore-microservices/_apis/build/status/web?branchName=master" />
+        </a>
+      </td>
       <td>Frontend based on <a href="https://vuejs.org">vuejs</a> and <a href="https://nodejs.org">Node.js</a></td>
       <td>
         <a href="https://github.com/vietnam-devs/coolstore-microservices/tree/master/src/web">code</a>
@@ -127,7 +149,11 @@ There are several individual µservices and infrastructure components that make 
      </tr>
      <tr>
       <td align="center">5.</td>
-      <td>Backoffice (React + TypeScript + Apollo-client)</td>
+      <td>
+        Backoffice (React + TypeScript + Apollo-client)<br/>
+        <a href="https://dev.azure.com/vietnam-devs/coolstore-microservices/_build/latest?definitionId=10&branchName=master">
+          <img src="https://dev.azure.com/vietnam-devs/coolstore-microservices/_apis/build/status/backoffice?branchName=master" />
+      </td>
       <td>The back office application for management business entities in the system</td>
       <td>
         <a href="https://github.com/vietnam-devs/coolstore-microservices/tree/master/src/backoffice">code</a>
@@ -138,7 +164,12 @@ There are several individual µservices and infrastructure components that make 
     </tr>
     <tr>
       <td align="center">6.</td>
-      <td>Catalog (Node.js + TypeScript + Mongo)</td>
+      <td>
+        Catalog (Node.js + TypeScript + Mongo)<br/>
+        <a href="https://dev.azure.com/vietnam-devs/coolstore-microservices/_build/latest?definitionId=3&branchName=master">
+          <img src="https://dev.azure.com/vietnam-devs/coolstore-microservices/_apis/build/status/catalog?branchName=master" />
+        </a>
+      </td>
       <td>Serves products and prices for retail products</td>
       <td>
         <a href="https://github.com/vietnam-devs/coolstore-microservices/tree/master/src/services/catalog">code</a>
@@ -149,7 +180,12 @@ There are several individual µservices and infrastructure components that make 
      </tr>
      <tr>
       <td align="center">7.</td>
-      <td>Cart (.NET Core + MySQL)</td>
+      <td>
+        Cart (.NET Core + MySQL)<br/>
+        <a href="https://dev.azure.com/vietnam-devs/coolstore-microservices/_build/latest?definitionId=2&branchName=master">
+          <img src="https://dev.azure.com/vietnam-devs/coolstore-microservices/_apis/build/status/cart?branchName=master" />
+        </a>
+      </td>
       <td>Manages shopping cart for each customer</td>
       <td>
         <a href="https://github.com/vietnam-devs/coolstore-microservices/tree/master/src/services/cart">code</a>
@@ -160,7 +196,12 @@ There are several individual µservices and infrastructure components that make 
      </tr>
      <tr>
       <td align="center">8.</td>
-      <td>Inventory (.NET Core + MySQL)</td>
+      <td>
+        Inventory (.NET Core + MySQL)<br/>
+        <a href="https://dev.azure.com/vietnam-devs/coolstore-microservices/_build/latest?definitionId=5&branchName=master">
+          <img src="https://dev.azure.com/vietnam-devs/coolstore-microservices/_apis/build/status/inventory?branchName=master" />
+        </a>
+      </td>
       <td>Serves inventory and availability data for retail products</td>
       <td>
         <a href="https://github.com/vietnam-devs/coolstore-microservices/tree/master/src/services/inventory">code</a>
@@ -171,29 +212,12 @@ There are several individual µservices and infrastructure components that make 
      </tr>
      <tr>
       <td align="center">9.</td>
-      <td>Pricing (.NET Core + MySQL)</td>
-      <td>Handles a business rules application for product pricing</td>
       <td>
-        <a href="https://github.com/vietnam-devs/coolstore-microservices/tree/master/src/services/pricing">code</a>
+        Rating (Node.js + TypeScript + Mongo)<br/>
+        <a href="https://dev.azure.com/vietnam-devs/coolstore-microservices/_build/latest?definitionId=6&branchName=master">
+          <img src="https://dev.azure.com/vietnam-devs/coolstore-microservices/_apis/build/status/rating?branchName=master" />
+        </a>
       </td>
-      <td>
-        <a href="http://localhost:5005">dev</a>
-      </td>
-     </tr>
-     <tr>
-      <td align="center">10.</td>
-      <td>Review (.NET Core + MySQL)</td>
-      <td>Runs for writing and displaying reviews for products</td>
-      <td>
-        <a href="https://github.com/vietnam-devs/coolstore-microservices/tree/master/src/services/review">code</a>
-      </td>
-      <td>
-        <a href="http://localhost:5006">dev</a>
-      </td>
-     </tr>
-     <tr>
-      <td align="center">11.</td>
-      <td>Rating (Node.js + TypeScript + Mongo)</td>
       <td>Runs for rating products</td>
       <td>
         <a href="https://github.com/vietnam-devs/coolstore-microservices/tree/master/src/services/rating">code</a>
@@ -216,10 +240,8 @@ See https://vietnam-devs.github.io/docs/development/up-running-d4d-aks/#docker-f
 #### Up and running with `docker compose`
 
 ```bash
+$ docker-compose build
 $ docker-compose up
-$ docker-compose -f docker-compose-graphql.yml up
-$ docker-compose -f docker-compose-graphql.headless.yml up
-$ docker-compose -f docker-compose-graphql.dev.yml up
 ```
 
 ### Staging and Production environments
@@ -282,15 +304,15 @@ Guidance for developing µService can be found at [Clean Domain-Driven Design in
         <p>Developer</p>
       </td>
       <td align="center" valign="top">
-        <img width="150" height="150" src="https://github.com/stuartleeks.png?s=150">
-        <br>
-        <a href="https://github.com/stuartleeks">Stuart Leeks</a>
-        <p>Contributor</p>
-      </td>
-      <td align="center" valign="top">
         <img width="150" height="150" src="https://github.com/trumhemcut.png?s=150">
         <br>
         <a href="https://github.com/trumhemcut">Phi Huynh</a>
+        <p>Contributor</p>
+      </td>
+      <td align="center" valign="top">
+        <img width="150" height="150" src="https://github.com/stuartleeks.png?s=150">
+        <br>
+        <a href="https://github.com/stuartleeks">Stuart Leeks</a>
         <p>Contributor</p>
       </td>
      </tr>

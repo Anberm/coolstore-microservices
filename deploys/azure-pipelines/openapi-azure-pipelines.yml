@@ -17,17 +17,18 @@ trigger:
       - master
   paths:
     include:
-      - src/services/review/*
+      - src/services/open-api/*
 
 steps:
   - checkout: self
   - script: docker login -u $(DOCKER_USERNAME) -p $(DOCKER_PASSWORD)
     displayName: "docker login"
   - script: |
+      docker pull microsoft/dotnet:2.2.100-sdk-alpine
       docker pull microsoft/dotnet:2.2.0-aspnetcore-runtime-alpine
     displayName: "Pull Docker Images"
   - script: |
-      docker build -f ./src/services/review/Dockerfile -t $(DOCKER_USERNAME)/cs-review-service:$(DOCKER_TAG) .
-      docker tag $(DOCKER_USERNAME)/cs-review-service:$(DOCKER_TAG) $(DOCKER_GROUP)/cs-review-service:$(DOCKER_TAG)
-      docker push $(DOCKER_GROUP)/cs-review-service:$(DOCKER_TAG)
-    displayName: "Build Review Service"
+      docker build -f ./src/services/open-api/Dockerfile -t $(DOCKER_USERNAME)/cs-openapi:$(DOCKER_TAG) .
+      docker tag $(DOCKER_USERNAME)/cs-openapi:$(DOCKER_TAG) $(DOCKER_GROUP)/cs-openapi:$(DOCKER_TAG)
+      docker push $(DOCKER_GROUP)/cs-openapi:$(DOCKER_TAG)
+    displayName: "Build Open Api"

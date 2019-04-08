@@ -15,7 +15,6 @@ IDP_SVR_PORT=8085
 CATALOG_SVC_PORT=5002
 CART_SVC_PORT=5003
 INVENTORY_SVC_PORT=5004
-REVIEW_SVC_PORT=5006
 RATING_SVC_PORT=5007
 
 MONGODB_PORT=27017
@@ -77,24 +76,26 @@ We support 4 modes of docker-compose at the moment:
 
 ### Debugging
 
-Let says we want to debug `review-service` so we need to do some steps below
+Let says we want to debug `cart-service` so we need to do some steps below
 
 #### _Step 1_:
 
 Open `docker-compose.yml`, find the section below, then comment or remove it
 
 ```yml
-review-service:
-  container_name: review-service
-  image: 'vndg/cs-review-service'
+cart-service:
+  container_name: cart-service
+  image: 'vndg/cs-cart-service'
   restart: always
+  environment:
+    - Features__EfCore__MySqlDb__FQDN=mysqldb:3306
   ports:
-    - '5006:5006'
+    - '5003:5003'
   expose:
-    - '5006'
+    - '5003'
   build:
     context: .
-    dockerfile: ./src/services/review/Dockerfile
+    dockerfile: ./src/services/cart/Dockerfile
 ```
 
 #### _Step 2_:
@@ -102,7 +103,7 @@ review-service:
 Open `src/deploys/dockers/envoy-proxy/envoy.yaml` file, then change a bit as below
 
 ```yml
-- name: review_grpc_service
+- name: cart_grpc_service
   connect_timeout: 0.25s
   type: static
   lb_policy: round_robin
@@ -127,6 +128,6 @@ Run your gRPC service in debug mode
 
 #### _Step 5_:
 
-Go to `http://localhost:8082/oai/swagger/index.html`, click to any `review-service` endpoints in there
+Go to `http://localhost:8082/oai/swagger/index.html`, click to any `cart-service` endpoints in there
 
 Enjoy your hack!
