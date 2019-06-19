@@ -6,8 +6,12 @@ export default function setup() {
   axios.interceptors.request.use(
     function(config) {
       const token = store.getters['account/accessToken']
+      const tokenInfo = store.getters['account/tokenInfo']
       if (token) {
         config.headers.Authorization = `Bearer ${token}`
+      }
+      if (tokenInfo && tokenInfo.username) {
+        config.headers['X-Role'] = tokenInfo.role
       }
       config.headers['Cache-Control'] = 'no-cache'
       return config

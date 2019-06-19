@@ -1,11 +1,14 @@
 fullnameOverride: coolstore
 image:
   repository: https://github.com/vietnam-devs/coolstore-microservices
-  pullPolicy: IfNotPresent # or Always
+  pullPolicy: IfNotPresent
   imageRegistry: vndg
   dockerTag: latest
 
 nginx:
+  enabled: false
+
+backoffice:
   enabled: false
 
 hosts:
@@ -29,29 +32,29 @@ idpSettings:
 catalogSettings:
   NodeEnv: "production"
   Host: "0.0.0.0"
-  Port: 5002
-  MongoDbHost: "mymongodb"
-  MongoDbPort: "27017"
-  MongoDbName: "catalog"
+  Port: "5002"
+  MongoDbHost: mymongodb
+  MongoDbPort: 27017
+  MongoDbName: catalog
 
 cartSettings:
   Host: "0.0.0.0"
-  Port: 5003
+  Port: "5003"
   MySqlDbFQDN: "mysqldb:3306"
-  CatalogUri: "http://api.coolstore.local/catalog"
+  CatalogUri: "catalog:5002"
 
 inventorySettings:
   Host: "0.0.0.0"
-  Port: 5004
+  Port: "5004"
   MySqlDbFQDN: "mysqldb:3306"
 
 ratingSettings:
   NodeEnv: "production"
   Host: "0.0.0.0"
   Port: 5007
-  MongoDbHost: "mymongodb"
-  MongoDbPort: "27017"
-  MongoDbName: "rating"
+  MongoDbHost: mymongodb
+  MongoDbPort: 27017
+  MongoDbName: rating
 
 graphqlSettings:
   HostsBasePath: /gql/
@@ -67,14 +70,16 @@ spaSettings:
   NodeEnv: development
   WebUri: http://coolstore.local/
   IdpUri: http://id.coolstore.local/
-  IdpHost: http://id.coolstore.local/
-  CatalogUri: http://coolstore.local/catalog/
-  CartUri: http://coolstore.local/cart/
-  InventoryUri: http://coolstore.local/inventory/
-  RatingUri: http://coolstore.local/rating/
+  OpenApiUri: http://coolstore.local/
 
 backofficeSettings:
   GraphQLEndPoint: http://api.coolstore.local/gql
   Authority: http://id.coolstore.local/
   ClientId: backoffice
   RootUrl: http://backoffice.coolstore.local
+
+openAPISettings:
+  CatalogEndPoint: catalog:5002
+  CartEndPoint: cart:5003
+  InventoryEndPoint: inventory:5004
+  RatingEndPoint: rating:5007

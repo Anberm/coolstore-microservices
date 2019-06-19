@@ -1,3 +1,4 @@
+{{- if .Values.backoffice.enabled -}}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -33,11 +34,12 @@ spec:
           value: {{ .Values.backofficeSettings.RootUrl }}
         ports:
         - containerPort: 3000
-        resources:
-          requests:
-            cpu: 500m
-            memory: 512Mi
-          limits:
-            cpu: 500m
-            memory: 1024Mi
+        # resources:
+        #   requests:
+        #     cpu: 100m
+        #     memory: 256Mi
+        #   limits:
+        #     cpu: 250m
+        #     memory: 400Mi
 ---
+{{- end -}}

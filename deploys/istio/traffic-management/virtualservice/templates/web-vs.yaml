@@ -1,0 +1,143 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: web-vs
+spec:
+  hosts:
+  - {{ .Values.hosts.web }}
+  gateways:
+  - cs-gateway
+  http:
+  - match:
+    - uri:
+        prefix: /catalog/
+    - uri:
+        prefix: /catalog
+    rewrite:
+      uri: /catalog/
+      authority: {{ .Values.hosts.api }}
+    route:
+    - destination:
+        host: open-api
+        subset: v1
+        port:
+          number: 80
+      weight: 100
+    # uncomment when apply shadow - mirroring  #3
+    # mirror:
+    #   host: open-api
+    #   subset: v2
+    #   port:
+    #       number: 80
+    # uncomment when apply canary - #5
+    # - destination:
+    #     host: open-api
+    #     subset: v2
+    #     port:
+    #       number: 80
+    #   weight: 70
+
+  - match:
+    - uri:
+        prefix: /cart/
+    - uri:
+        prefix: /cart
+    rewrite:
+      uri: /cart/
+      authority: {{ .Values.hosts.api }}
+    route:
+    - destination:
+        host: open-api
+        subset: v1
+        port:
+          number: 80
+      weight: 100
+  - match:
+    - uri:
+        prefix: /inventory/
+    - uri:
+        prefix: /inventory
+    rewrite:
+      uri: /inventory/
+      authority: {{ .Values.hosts.api }}
+    route:
+    - destination:
+        host: open-api
+        subset: v1
+        port:
+          number: 80
+      weight: 100
+  # - match:
+  #   - uri:
+  #       prefix: /rating/
+  #   - uri:
+  #       prefix: /rating
+  #   rewrite:
+  #     uri: /rating/
+  #     authority: {{ .Values.hosts.api }}
+  #   route:
+  #   - destination:
+  #       host: open-api
+  #       subset: v1
+  #       port:
+  #         number: 80
+  #     weight: 100
+  - match:
+    - uri:
+        prefix: /open-api/
+    - uri:
+        prefix: /open-api
+    rewrite:
+      uri: /open-api/
+      authority: {{ .Values.hosts.api }}
+    route:
+    - destination:
+        host: open-api
+        subset: v1
+        port:
+          number: 80
+      weight: 100
+
+  - match:
+    - uri:
+        prefix: /config/
+    - uri:
+        prefix: /config
+    rewrite:
+      uri: /
+      authority: {{ .Values.hosts.idp }}
+    route:
+    - destination:
+        host: idp
+        port:
+          number: 80
+  - match:
+    - uri:
+        prefix: /
+    route:
+    - destination:
+        host: spa
+        port:
+          number: 80
+
+---
+
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: open-api-destination-rule
+spec:
+  host: open-api.dev-env.svc.cluster.local
+  # apply sticky session for A/B testing
+  # trafficPolicy:
+  #     loadBalancer:
+  #       consistentHash:
+  #         httpHeaderName: version
+  #         minimumRingSize: 1024 # missing this property, LB will be crashed
+  subsets:
+  - name: v1
+    labels:
+      version: v1
+  - name: v2
+    labels:
+      version: v2

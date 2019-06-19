@@ -11,12 +11,11 @@ export default {
     error: null,
     page: 1,
     product: {},
-    highprice: null
+    highprice: 0
   },
 
   getters: {
     products: state => {
-      console.log(state)
       return state.products.map(product => {
         let productDefault = {
           price: 0,
@@ -36,16 +35,12 @@ export default {
       })
     },
     highprice: state => {
-      console.log(state)
-      state.highprice =
-        state.highprice ||
-        Math.max.apply(
-          Math,
-          state.products.map(function(product) {
-            return product.price
-          })
-        )
-      return state.highprice
+      return Math.max.apply(
+        Math,
+        state.products.map(function(product) {
+          return product.price
+        })
+      )
     }
   },
 
@@ -60,7 +55,7 @@ export default {
     },
 
     GET_PRODUCT_BY_ID_SUCCESS(state, product) {
-      state.product = product.product
+      state.product = product
     },
 
     SET_HIGTHEST_PRICE(state, highprice) {

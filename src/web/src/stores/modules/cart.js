@@ -18,7 +18,6 @@ export default {
 
   getters: {
     cartReducer: state => {
-      console.log(state)
       state.cart = state.cart || {}
       state.cart.item = state.cart.item || []
       let flat = {
@@ -31,11 +30,9 @@ export default {
       return Object.assign(state.cart, flat)
     },
     cartId: state => {
-      console.log(state)
       return state.cartId
     },
     itemCount: state => {
-      console.log(state)
       state.cart = state.cart || {}
       state.cart.items = state.cart.items || []
       return state.cart.items.length
@@ -44,14 +41,18 @@ export default {
 
   mutations: {
     GET_CART_SUCCESS(state, cart) {
-      state.cart = cart.result || {}
-      state.cartId = cart.result.id
+      state.cart = cart || {}
+      state.cartId = cart.id
     },
 
     GET_CART_FALURE(state, error) {
       state.error = error
     },
-    REMOVE_FROM_CARD_SUCCESS(state) {}
+    REMOVE_FROM_CARD_SUCCESS(state, productId) {
+      state.cart.items = state.cart.items || []
+      const index = state.cart.items.map(item => item.productId).indexOf(productId)
+      state.cart.items.splice(index, 1)
+    }
   },
 
   actions: {
@@ -138,9 +139,8 @@ export default {
       return new Promise((resolve, reject) => {
         removeFomCart(cartId, productId)
           .then(
-            cart => {
-              commit('REMOVE_FROM_CARD_SUCCESS', cart)
-              dispatch('cart/GET_CART', cartId)
+            productId => {
+              commit('REMOVE_FROM_CARD_SUCCESS', productId)
               resolve()
             },
             error => {

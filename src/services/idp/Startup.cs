@@ -12,6 +12,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Logging;
+using VND.CoolStore.Services.Idp.Certificate;
+using VND.CoolStore.Services.Idp.Customized;
 
 namespace IdentityServer4
 {
@@ -40,7 +42,7 @@ namespace IdentityServer4
                         .AllowCredentials());
             });
 
-            var host = Configuration.GetSection("Hosts")?.GetSection("Externals")?.GetSection("sCurrentUri")?.Value;
+            var host = Configuration.GetValue<string>("Hosts:Externals:CurrentUri");
             var builder = services
                 .AddIdentityServer(options =>
                 {
@@ -52,7 +54,8 @@ namespace IdentityServer4
                     options.PublicOrigin = Environment.IsDevelopment() ? "" : host;
                 })
                 .AddTestUsers(TestUsers.Users)
-                .AddJwtBearerClientAuthentication();
+                .AddJwtBearerClientAuthentication()
+                .AddProfileService<CustomizedProfileService>();
 
             // in-memory, code config
             var clients = Config.GetDevClients();
@@ -75,8 +78,8 @@ namespace IdentityServer4
             // builder.AddInMemoryApiResources(Configuration.GetSection("ApiResources"));
             // builder.AddInMemoryClients(Configuration.GetSection("clients"));
 
-            builder.AddDeveloperSigningCredential();
-            // builder.AddSigningCredential(Certificate.Get());
+            // builder.AddDeveloperSigningCredential();
+            builder.AddSigningCredential(Certificate.Get());
 
             services
                 .AddAuthentication(options =>
@@ -110,7 +113,7 @@ namespace IdentityServer4
                 app.UseExceptionHandler("/Home/Error");
             }
 
-            var basePath = Configuration.GetSection("HostSettings")?.GetValue<string>("BasePath");
+            var basePath = Configuration.GetValue<string>("HostSettings:BasePath");
             if (!string.IsNullOrEmpty(basePath))
             {
                 loggerFactory.CreateLogger("init").LogDebug($"Using PATH BASE '{basePath}'");

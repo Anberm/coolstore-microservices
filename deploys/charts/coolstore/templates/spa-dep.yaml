@@ -29,23 +29,15 @@ spec:
           value: {{ .Values.spaSettings.WebUri }}
         - name: NODE_IDP_ENV
           value: {{ .Values.spaSettings.IdpUri }}
-        - name: NODE_IDP_HOST
-          value: {{ .Values.spaSettings.IdpHost }}
-        - name: NODE_CATALOG_ENV
-          value: {{ .Values.spaSettings.CatalogUri }}
-        - name: NODE_CART_ENV
-          value: {{ .Values.spaSettings.CartUri }}
-        - name: NODE_INVENTORY_ENV
-          value: {{ .Values.spaSettings.InventoryUri }}
-        - name: NODE_RATING_ENV
-          value: {{ .Values.spaSettings.RatingUri }}
+        - name: NODE_OPENAPI_ENV
+          value: {{ .Values.spaSettings.OpenApiUri }}
         ports:
-        - containerPort: 8080
+        - containerPort: 8084
         resources:
           requests:
-            cpu: 300m
+            cpu: 100m
             memory: 128Mi
           limits:
-            cpu: 500m
+            cpu: 250m
             memory: 256Mi
 ---

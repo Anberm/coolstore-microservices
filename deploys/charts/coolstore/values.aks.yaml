@@ -1,31 +1,24 @@
+image:
+  pullPolicy: Always
+
 hosts:
-  web: coolstore.aks
-  api: api.coolstore.aks
-  idp: id.coolstore.aks
+  web: cool-store.ml
+  api: api.cool-store.ml
+  idp: id.cool-store.ml
 
 idpSettings:
   BashPath: /
-  Hosts__Externals__CurrentUri: http://id.coolstore.aks/
-  SwaggerRedirectUri: http://api.coolstore.aks/swagger/oauth2-redirect.html
-  SwaggerPostLogoutRedirectUri: http://api.coolstore.aks
-  SwaggerAllowedCorsOrigin: http://api.coolstore.aks
-  SpaAllowedCorsOrigin: http://coolstore.aks
+  ExternalCurrentUri: http://id.cool-store.ml/
+  SwaggerRedirectUri: http://api.cool-store.ml/swagger/oauth2-redirect.html
+  SwaggerPostLogoutRedirectUri: http://api.cool-store.ml
+  SwaggerAllowedCorsOrigin: http://api.cool-store.ml
+  SpaAllowedCorsOrigin: http://cool-store.ml
 
 cartSettings:
-  Hosts__Externals__CurrentUri: http://api.coolstore.aks/cart
-  Hosts__Externals__Auth__Uri: http://id.coolstore.aks
-  Hosts__Externals__Catalog__Uri: http://api.coolstore.aks/catalog
+  CatalogUri: "http://api.cool-store.ml/catalog"
 
-inventorySettings:
-  Hosts__Externals__CurrentUri: http://api.coolstore.aks/inventory
-  Hosts__Externals__Auth__Uri: http://id.coolstore.aks
-
-webSettings:
-  NODE_ENV: development
-  NODE_WEB_ENV: http://coolstore.aks/
-  NODE_IDP_ENV: http://id.coolstore.aks/
-  NODE_CATALOG_ENV: http://api.coolstore.aks/
-  NODE_CART_ENV: http://api.coolstore.aks/
-  NODE_INVENTORY_ENV: http://api.coolstore.aks/
-  NODE_RATING_ENV: http://api.coolstore.aks/
-  NODE_IDP_HOST: id.coolstore.aks
+spaSettings:
+  NodeEnv: development
+  WebUri: http://cool-store.ml/
+  IdpUri: http://id.cool-store.ml/
+  OpenApiUri: http://api.cool-store.ml/

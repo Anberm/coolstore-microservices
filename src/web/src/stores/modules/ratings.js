@@ -9,7 +9,6 @@ export default {
 
   getters: {
     ratingSet: state => {
-      console.log(state)
       let ratingSet = state.ratings.reduce((obj, item) => {
         obj[item.productId] = item
         return obj
@@ -34,7 +33,7 @@ export default {
           .then(
             ratings => {
               ratings = ratings || {}
-              commit('GET_LIST_RATING_SUCSESS', ratings.ratings)
+              commit('GET_LIST_RATING_SUCSESS', ratings)
               resolve()
             },
             error => {

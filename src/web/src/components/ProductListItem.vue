@@ -12,7 +12,12 @@
       <div class="media">
         <div class="media-content">
           <router-link exact :to="{ name: 'reviewproduct', params: {id: item.id } }">
-            <p class="title is-5">{{ item.name }}</p>
+            <p class="title is-5">
+              {{ item.name }}
+              <span>
+                <i v-if="item.isHot  === true" class="fas fa-heart feature"></i>
+              </span>
+            </p>
             <p class="item-price">{{ item.price | usdollar }}</p>
           </router-link>
         </div>
@@ -31,7 +36,7 @@
           </p>
         </div>
       </div>
-      <div>
+      <!-- <div>
         <star-rating
           @rating-selected="setRating(item.id, $event)"
           v-bind:star-size="20"
@@ -39,18 +44,18 @@
           v-model="ratings[item.id].cost"
           v-bind:show-rating="false"
         ></star-rating>
-      </div>
+      </div>-->
     </div>
   </div>
 </template>
 <script>
 import { createNamespacedHelpers } from "vuex";
-import StarRating from "vue-star-rating";
+//import StarRating from "vue-star-rating";
 const { mapActions } = createNamespacedHelpers("cart");
 export default {
   name: "Card",
   components: {
-    StarRating
+    //StarRating
   },
   filters: {
     usdollar: value => `$${value}`
@@ -59,11 +64,11 @@ export default {
     item: {
       type: Object,
       required: true
-    },
-    ratings: {
+    }
+    /*ratings: {
       type: Object,
       required: true
-    }
+    }*/
   },
   computed: {
     cartId() {
@@ -83,14 +88,14 @@ export default {
           productId,
           quantity
         });
-    },
-    setRating(productId, rating) {
+    }
+    /*setRating(productId, rating) {
       this.$store.dispatch("ratings/SET_RATING_FOR_PRODUCT", {
         productId,
         userId: this.userInfo.sub,
         cost: rating
       });
-    }
+    }*/
   }
 };
 </script>
@@ -114,6 +119,10 @@ export default {
 
   .title, .subtitle {
     color: inherit;
+
+    .feature {
+      color: #ff0000;
+    }
   }
 
   .title {
